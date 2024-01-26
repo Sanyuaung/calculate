@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Salary</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script src="https://cdn.jsdelivr.net/npm/cleave.js@1.5.3/dist/cleave.min.js"></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+      crossorigin="anonymous"
+    ></script>
+    <style>
+      body {
+        font-family: "Playfair Display";
+        .form-control:focus {
+          outline: none;
+          box-shadow: 0 0 0 0.25rem rgba(255, 255, 255, 0.25);
+        }
+        #currentDate {
+          border-bottom: 3px solid #279eba;
+        }
+        #upload-container {
+          position: relative;
+          width: 150px;
+          height: 150px;
+          overflow: hidden;
+          cursor: pointer;
+        }
+
+        #image-upload {
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          opacity: 0;
+          cursor: pointer;
+        }
+
+        #upload-container img {
+          max-width: 100%;
+          max-height: 100%;
+          display: none;
+          border-radius: 10px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="row col-8 offset-3">
+        <div
+          class="p-3 rounded"
+          style="margin-top: 20px; border: 2px solid #279eba"
+        >
+          <label
+            class="form-label offset-5 mt-3 mb-3"
+            for="currentDate"
+            id="currentDate"
+          ></label>
+          <div id="upload-container">
+            <input type="file" id="image-upload" accept="image/*" />
+            <img id="image-preview" alt="Image Preview" /><br />
+            <label
+              id="label"
+              style="border-color: white"
+              for="logo"
+              class="form-control"
+              >Click to upload logo</label
+            >
+          </div>
+          <div class="input-group">
+            <label
+              style="border-color: white"
+              for="Department Name"
+              class="form-control"
+              >Department Name</label
+            >
+            <input
+              style="border-color: white"
+              type="text"
+              class="form-control"
+              placeholder="IT"
+              aria-label="IT"
+            />
+          </div>
+          <div class="input-group">
+            <label
+              style="border-color: white"
+              for="Employee Name"
+              class="form-control"
+              >Employee Name</label
+            >
+            <input
+              style="border-color: white"
+              type="text"
+              class="form-control"
+              placeholder="San Yu Aung"
+              aria-label="San Yu Aung"
+            />
+          </div>
+          <div class="input-group">
+            <label
+              style="border-color: white"
+              for="Position"
+              class="form-control"
+              >Position</label
+            >
+            <input
+              style="border-color: white"
+              type="text"
+              class="form-control"
+              placeholder="Deputy Manager (Senior Web Developer)"
+              aria-label="Deputy Manager (Senior Web Developer)"
+            />
+          </div>
+          <div class="input-group">
+            <label
+              style="border-color: white"
+              for="Join Date"
+              class="form-control"
+              >Join Date</label
+            >
+            <input
+              id="date"
+              class="form-control"
+              style="border-color: white"
+              placeholder="26 - Dec - 2023"
+              aria-label="26 - Dec - 2023"
+              data-input
+            />
+          </div>
+          <br />
+          <div class="input-group">
+            <label
+              style="border-color: white"
+              for="Gross Salary"
+              class="fw-bold form-control"
+              >Gross Salary</label
+            >
+            <input
+              name="Gross_Salary"
+              id="Gross_Salary"
+              style="border-color: white"
+              type="text"
+              class="form-control formatNumber"
+              placeholder="0 MMK"
+              aria-label="0"
+              oninput="calculateNetSalary()"
+            />
+          </div>
+          <div class="input-group">
+            <label
+              style="border-color: white"
+              for="Vehicle Allowance"
+              class="fw-bold form-control"
+              >Vehicle Allowance</label
+            >
+            <input
+              name="Vehicle_Allowance"
+              id="Vehicle_Allowance"
+              style="border-color: white"
+              type="text"
+              class="form-control formatNumber"
+              placeholder="0 MMK"
+              aria-label="0"
+              oninput="calculateNetSalary()"
+            />
+          </div>
+          <br />
+          <div class="input-group">
+            <label
+              style="border-color: white; border-bottom: 3px solid #279eba"
+              for="Deduction"
+              class="fs-5 fw-bold form-control"
+              >Deduction</label
+            >
+          </div>
+          <div class="input-group">
+            <label
+              style="border-color: white"
+              for="Income Tax"
+              class="form-control"
+              >Income Tax</label
+            >
+            <input
+              name="Income_Tax"
+              id="Income_Tax"
+              style="border-color: white"
+              type="text"
+              class="form-control formatNumber"
+              placeholder="0 MMK"
+              aria-label="0"
+              oninput="calculateNetSalary()"
+            />
+          </div>
+          <div class="input-group">
+            <label style="border-color: white" for="SSB" class="form-control"
+              >SSB</label
+            >
+            <input
+              name="SSB"
+              id="SSB"
+              style="border-color: white"
+              type="text"
+              class="form-control formatNumber"
+              placeholder="0 MMK"
+              aria-label="0"
+              oninput="calculateNetSalary()"
+            />
+          </div>
+          <div class="input-group">
+            <label style="border-color: white" for="GPS" class="form-control"
+              >GPS</label
+            >
+            <input
+              name="GPS"
+              id="GPS"
+              style="border-color: white"
+              type="text"
+              class="form-control formatNumber"
+              placeholder="0 MMK"
+              aria-label="0"
+              oninput="calculateNetSalary()"
+            />
+          </div>
+          <div class="input-group">
+            <label
+              style="border-color: white"
+              for="Staff Loan"
+              class="form-control"
+              >Staff Loan</label
+            >
+            <input
+              name="Staff_Loan"
+              id="Staff_Loan"
+              style="border-color: white"
+              type="text"
+              class="form-control formatNumber"
+              placeholder="0 MMK"
+              aria-label="0"
+              oninput="calculateNetSalary()"
+            />
+          </div>
+          <div class="input-group">
+            <label
+              style="border-color: white"
+              for="Housing Rent"
+              class="form-control"
+              >Housing Rent</label
+            >
+            <input
+              name="Housing_Rent"
+              id="Housing_Rent"
+              style="border-color: white"
+              type="text"
+              class="form-control formatNumber"
+              placeholder="0 MMK"
+              aria-label="0"
+              oninput="calculateNetSalary()"
+            />
+          </div>
+          <div class="input-group">
+            <label
+              style="border-color: white"
+              for="Unpaid Leave"
+              class="form-control"
+              >Unpaid Leave</label
+            >
+            <input
+              name="Unpaid_Leave"
+              id="Unpaid_Leave"
+              style="border-color: white"
+              type="text"
+              class="form-control formatNumber"
+              placeholder="0 MMK"
+              aria-label="0"
+              oninput="calculateNetSalary()"
+            />
+          </div>
+          <br />
+          <div class="input-group">
+            <label
+              style="border-color: white"
+              for="departmentName"
+              class="form-control"
+              >Adjustment</label
+            >
+            <input
+              name="Adjustment"
+              id="Adjustment"
+              style="border-color: white"
+              type="text"
+              class="form-control formatNumber"
+              placeholder="0 MMK"
+              aria-label="0"
+              oninput="calculateNetSalary()"
+            />
+          </div>
+          <br />
+          <div class="input-group">
+            <label
+              style="border-color: white; border-top: 3px solid #279eba"
+              for="departmentName"
+              class="fs-5 fw-bold form-control"
+              >Net Salary</label
+            ><label
+              name="Net_Salary"
+              id="Net_Salary"
+              readonly
+              style="border-color: white; border-top: 3px solid #279eba"
+              type="number"
+              class="form-control"
+              placeholder="0 MMK"
+              aria-label="0"
+              >0 MMK</label
+            >
+          </div>
+        </div>
+      </div>
+    </div>
+    <script>
+      var currentDate = new Date();
+
+      var day = currentDate.getDate();
+      var monthIndex = currentDate.getMonth();
+      var year = currentDate.getFullYear();
+
+      var monthNames = [
+        "Jan",
+        "Feb",
+        "Mar",
+        "Apr",
+        "May",
+        "Jun",
+        "Jul",
+        "Aug",
+        "Sep",
+        "Oct",
+        "Nov",
+        "Dec",
+      ];
+
+      var formattedDate = day + " - " + monthNames[monthIndex] + " - " + year;
+
+      document.getElementById("currentDate").textContent = formattedDate;
+    </script>
+    <script>
+      const imageUpload = document.getElementById("image-upload");
+      const imagePreview = document.getElementById("image-preview");
+
+      imageUpload.addEventListener("change", handleImageUpload);
+
+      function handleImageUpload(event) {
+        const files = event.target.files;
+
+        if (files.length > 0) {
+          const file = files[0];
+          const reader = new FileReader();
+
+          reader.onload = function (e) {
+            imagePreview.src = e.target.result;
+            imagePreview.style.display = "block"; // Show the image
+            label.style.display = "none"; // Hide the label
+          };
+
+          reader.readAsDataURL(file);
+        } else {
+          // Clear the preview if no file is selected
+          imagePreview.src = "";
+          imagePreview.style.display = "none"; // Hide the image
+          label.style.display = "block"; // Show the label
+        }
+
+        // Clear the file input after handling the image
+        imageUpload.value = "";
+      }
+    </script>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        flatpickr("#date", {
+          dateFormat: "d - M - Y",
+          defaultDate: new Date("2023-12-26"), // Set the default date as a JavaScript Date object
+        });
+      });
+    </script>
+    <script>
+      document.querySelectorAll(".formatNumber").forEach((inp) => {
+        new Cleave(inp, {
+          numeral: true,
+          numeralThousandsGroupStyle: "thousand",
+        });
+        inp.addEventListener("input", function () {
+          formatNumberWithMMK(this);
+        });
+      });
+
+      function formatNumberWithMMK(inputElement) {
+        // Get the value from the input
+        let numericValue = inputElement.value;
+
+        // Add " MMK" to the numeric value
+        let formattedValue = numericValue === "" ? "" : numericValue + " MMK";
+
+        // Update the input value
+        inputElement.value = formattedValue;
+
+        // Call your function to calculate net salary if needed
+        calculateNetSalary();
+      }
+    </script>
+    <script>
+      function calculateNetSalary() {
+        var grossSalary = parseFloat(getNumber("Gross_Salary")) || 0;
+        var vehicleAllowance = parseFloat(getNumber("Vehicle_Allowance")) || 0;
+        var incomeTax = parseFloat(getNumber("Income_Tax")) || 0;
+        var SSB = parseFloat(getNumber("SSB")) || 0;
+        var GPS = parseFloat(getNumber("GPS")) || 0;
+        var staffLoan = parseFloat(getNumber("Staff_Loan")) || 0;
+        var housingRent = parseFloat(getNumber("Housing_Rent")) || 0;
+        var unpaidLeave = parseFloat(getNumber("Unpaid_Leave")) || 0;
+        var adjustment = parseFloat(getNumber("Adjustment")) || 0;
+
+        // Calculate the sum
+        var netSalary =
+          grossSalary +
+          vehicleAllowance -
+          (incomeTax +
+            SSB +
+            GPS +
+            staffLoan +
+            housingRent +
+            unpaidLeave +
+            adjustment);
+
+        // Update the Net_Salary field
+        // document.getElementById("Net_Salary").value = netSalary;
+        var formattedNetSalary = new Intl.NumberFormat("en-US").format(
+          netSalary
+        );
+
+        document.getElementById("Net_Salary").textContent =
+          formattedNetSalary + " MMK";
+      }
+
+      function getNumber(elementId) {
+        // Get the value from the input and remove commas
+        return document.getElementById(elementId).value.replace(/,/g, "");
+      }
+    </script>
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+      integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"
+      integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>
