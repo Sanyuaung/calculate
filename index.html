@@ -60,16 +60,21 @@
   </head>
   <body>
     <div class="container">
-      <div class="row col-8 offset-3">
+      <div
+        class="row p-3 col-xl-8 col-xxl-8 col-lg-8 offset-md-2 offset-lg-2 offset-xl-2 offset-xxl-2"
+      >
         <div
-          class="p-3 rounded"
+          class="rounded"
           style="margin-top: 20px; border: 2px solid #279eba"
         >
-          <label
-            class="form-label offset-5 mt-3 mb-3"
-            for="currentDate"
-            id="currentDate"
-          ></label>
+          <input
+            id="date"
+            class="form-control offset-5 mt-3 mb-3 w-auto"
+            style="border-color: white"
+            placeholder="26 - Dec - 2023"
+            aria-label="26 - Dec - 2023"
+            data-input
+          />
           <div id="upload-container">
             <input type="file" id="image-upload" accept="image/*" />
             <img id="image-preview" alt="Image Preview" /><br />
@@ -155,7 +160,7 @@
               id="Gross_Salary"
               style="border-color: white"
               type="text"
-              class="form-control formatNumber"
+              class="form-control fw-bold formatNumber text-end"
               placeholder="0 MMK"
               aria-label="0"
               oninput="calculateNetSalary()"
@@ -173,7 +178,7 @@
               id="Vehicle_Allowance"
               style="border-color: white"
               type="text"
-              class="form-control formatNumber"
+              class="form-control fw-bold formatNumber text-end"
               placeholder="0 MMK"
               aria-label="0"
               oninput="calculateNetSalary()"
@@ -200,7 +205,7 @@
               id="Income_Tax"
               style="border-color: white"
               type="text"
-              class="form-control formatNumber"
+              class="form-control formatNumber text-end"
               placeholder="0 MMK"
               aria-label="0"
               oninput="calculateNetSalary()"
@@ -215,7 +220,7 @@
               id="SSB"
               style="border-color: white"
               type="text"
-              class="form-control formatNumber"
+              class="form-control formatNumber text-end"
               placeholder="0 MMK"
               aria-label="0"
               oninput="calculateNetSalary()"
@@ -230,7 +235,7 @@
               id="GPS"
               style="border-color: white"
               type="text"
-              class="form-control formatNumber"
+              class="form-control formatNumber text-end"
               placeholder="0 MMK"
               aria-label="0"
               oninput="calculateNetSalary()"
@@ -248,7 +253,7 @@
               id="Staff_Loan"
               style="border-color: white"
               type="text"
-              class="form-control formatNumber"
+              class="form-control formatNumber text-end"
               placeholder="0 MMK"
               aria-label="0"
               oninput="calculateNetSalary()"
@@ -266,7 +271,7 @@
               id="Housing_Rent"
               style="border-color: white"
               type="text"
-              class="form-control formatNumber"
+              class="form-control formatNumber text-end"
               placeholder="0 MMK"
               aria-label="0"
               oninput="calculateNetSalary()"
@@ -284,7 +289,7 @@
               id="Unpaid_Leave"
               style="border-color: white"
               type="text"
-              class="form-control formatNumber"
+              class="form-control formatNumber text-end"
               placeholder="0 MMK"
               aria-label="0"
               oninput="calculateNetSalary()"
@@ -303,7 +308,7 @@
               id="Adjustment"
               style="border-color: white"
               type="text"
-              class="form-control formatNumber"
+              class="form-control formatNumber text-end"
               placeholder="0 MMK"
               aria-label="0"
               oninput="calculateNetSalary()"
@@ -322,7 +327,7 @@
               readonly
               style="border-color: white; border-top: 3px solid #279eba"
               type="number"
-              class="form-control"
+              class="form-control text-end fw-bold"
               placeholder="0 MMK"
               aria-label="0"
               >0 MMK</label
